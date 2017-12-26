@@ -3,13 +3,14 @@ const request = require('request');
 const getYouTubeID = require('get-youtube-id');
 const Discord = require('discord.js');
 const prefix = "--";
+const yt_api_key = process.env.YT_API_KEY
 
 let music = {};
 var guild = {};
 
 const client = new Discord.Client();
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN);;
 
 
 client.on('ready', () => {
@@ -30,12 +31,13 @@ client.on('message', message => {
         let song = args.join(' ')
 
     if (command === 'play') {
-        if (!message.member.voiceChannel) return message.reply('Err... your not in a voice channel???!!!');
+        if (!message.member.voiceChannel) return message.reply('Err...No voice channel?');
         if (guild.isPlaying) {
            getID(song, id => {
               if (!id) return message.reply('Unable to extract video.');
-              ytdl.getInfo(id, (err, info) => {
-                 if (err) return message.reply('Hmm.. there was an error extracting that video.');
+              
+               dl.getInfo(id, (err, info) => {
+                 if (err) return message.reply('Hmm..there was an error extracting that video.');
                  if (info.formats.some(format => format.live)) return message.reply('Not supporting live stream at this time. Sorry.');
                  message.delete();
                     guild.queue.push({
@@ -51,7 +53,7 @@ client.on('message', message => {
            getID(song, id => {
            if (!id) return message.reply(' unable to extract video');
               ytdl.getInfo(id, (err, info) => {
-              if (err) return message.reply('Hmm.. there was an error extracting that video.');
+              if (err) return message.reply('Hmm..there was an error extracting that video.');
               if (info.formats.some(format => format.live)) return message.reply('Not supporting live stream at this time.');
                  message.delete();
                       guild.queue.push({
