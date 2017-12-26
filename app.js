@@ -3,7 +3,6 @@ const request = require('request');
 const getYouTubeID = require('get-youtube-id');
 const Discord = require('discord.js');
 const prefix = "--";
-const yt_api_key = process.env.YT_API_KEY
 
 let music = {};
 var guild = {};
